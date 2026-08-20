@@ -1,3 +1,6 @@
+using Catalog.Api.Data;
+using Catalog.Api.Shared;
+
 namespace Catalog.Api
 {
     public class Program
@@ -11,6 +14,9 @@ namespace Catalog.Api
             builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton(typeof(ICatalogContext), typeof(CatalogContext));
+
+            builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 
 
 
