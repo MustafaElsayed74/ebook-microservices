@@ -10,9 +10,9 @@ namespace Catalog.Api.Repositories
         Task<bool> UpdateProductAsync(Product product);
         Task<IReadOnlyList<Product>> GetAllProductsAsync();
         Task<Product> GetByIdAsync(string id);
-        Task<Product> GetByNameAsync(string name);
+        Task<IReadOnlyList<Product>> GetByNameAsync(string name);
         Task<IReadOnlyList<Product>> GetByCategoryAsync(string category);
-        Task<bool> DeleteProductAsync(string  id);
+        Task<bool> DeleteProductAsync(string id);
     }
 }
 

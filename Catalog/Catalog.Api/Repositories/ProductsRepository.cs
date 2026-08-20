@@ -40,19 +40,24 @@ namespace Catalog.Api.Repositories
 
         }
 
-        public Task<Product> GetByIdAsync(string id)
+        public async Task<Product> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Id, id);
+            return await _context.Products.Find(filter).FirstOrDefaultAsync();
         }
 
-        public Task<Product> GetByNameAsync(string name)
+        public async Task<IReadOnlyList<Product>> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Category, name);
+            return await _context.Products.Find(filter).ToListAsync();
+
         }
 
-        public Task<bool> UpdateProductAsync(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            var updateResult = await _context.Products.ReplaceOneAsync(filter: p => p.Id == product.Id, replacement: product);
+
+            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
     }
 }
