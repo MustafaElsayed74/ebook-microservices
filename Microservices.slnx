@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/Services/">
-    <Project Path="../Basket/Basket.Api/Basket.Api.csproj" Id="6e2cf9fa-a0f0-4b00-ad21-5e37aa44f9fc" />
+    <Project Path="Basket/Basket.Api/Basket.Api.csproj" Id="6e2cf9fa-a0f0-4b00-ad21-5e37aa44f9fc" />
     <Project Path="Catalog/Catalog.Api/Catalog.Api.csproj" />
   </Folder>
   <Project Path="docker-compose.dcproj">
