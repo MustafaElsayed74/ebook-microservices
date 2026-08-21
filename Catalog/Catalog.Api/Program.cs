@@ -1,4 +1,5 @@
 using Catalog.Api.Data;
+using Catalog.Api.Repositories;
 using Catalog.Api.Shared;
 
 namespace Catalog.Api
@@ -7,23 +8,25 @@ namespace Catalog.Api
     {
         public static void Main(string[] args)
         {
-            #region DI
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddAuthorization();
+            // Dependency Injection
+
+            builder.Services.AddControllers();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton(typeof(ICatalogContext), typeof(CatalogContext));
 
-            builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+            builder.Services.AddSingleton<ICatalogContext, CatalogContext>();
+            builder.Services.AddScoped<IProductsRepository,ProductsRepository>();
 
+            builder.Services.Configure<DatabaseSettings>(
+                builder.Configuration.GetSection("DatabaseSettings")
+            );
 
-
-            #endregion
-
-            #region middelwares
             var app = builder.Build();
+
+            // Middleware
 
             if (app.Environment.IsDevelopment())
             {
@@ -31,16 +34,13 @@ namespace Catalog.Api
                 app.UseSwaggerUI();
             }
 
-            // Configure the HTTP request pipeline.
-
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            
+            app.MapControllers();
 
             app.Run();
-            #endregion
         }
     }
 }

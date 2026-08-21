@@ -1,5 +1,6 @@
 ﻿using Catalog.Api.Data;
 using Catalog.Api.Entities;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Catalog.Api.Repositories
@@ -15,6 +16,7 @@ namespace Catalog.Api.Repositories
 
         public async Task CreateProductAsync(Product product)
         {
+            product.Id = ObjectId.GenerateNewId().ToString();
             await _context.Products.InsertOneAsync(product);
         }
 
@@ -48,7 +50,7 @@ namespace Catalog.Api.Repositories
 
         public async Task<IReadOnlyList<Product>> GetByNameAsync(string name)
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Category, name);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Name, name);
             return await _context.Products.Find(filter).ToListAsync();
 
         }
