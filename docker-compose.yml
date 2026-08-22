@@ -10,15 +10,19 @@ services:
     ports:
       - "6379:6379"
 
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Basket/Basket.Api/Dockerfile
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Catalog/Catalog.Api/Dockerfile
 
-
-  mongoclient: 
-      image: mongoclient/mongoclient 
 
 volumes:
   mongo_data:
