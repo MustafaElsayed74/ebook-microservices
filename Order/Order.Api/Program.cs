@@ -1,8 +1,7 @@
-using Basket.Api.Repositories;
-using Basket.Api.Services;
-using StackExchange.Redis;
+using Microsoft.EntityFrameworkCore;
+using Order.Api.Data;
 
-namespace Basket.Api
+namespace Order.Api
 {
     public class Program
     {
@@ -13,20 +12,14 @@ namespace Basket.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddHttpClient();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
-            builder.Services.AddScoped<IBasketService, BasketService>();
-            builder.Services.AddHttpClient<CatalogApiClient>(client =>
+            builder.Services.AddDbContext<OrderDbContext>(options =>
             {
-                client.BaseAddress = new Uri("http://catalog.api:8080/");
-            });
-            builder.Services.AddSingleton<IConnectionMultiplexer>(S =>
-            {
-                var cs = builder.Configuration["DatabaseSettings:Redis"] ?? throw new InvalidOperationException("Connection String Not Found"); ;
+                var cs = builder.Configuration.GetConnectionString("DefaultConection")
+                ?? throw new InvalidOperationException("Connection String not found");
 
-                return ConnectionMultiplexer.Connect(cs);
+                options.UseSqlServer(cs);
             });
 
             var app = builder.Build();
@@ -41,7 +34,6 @@ namespace Basket.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

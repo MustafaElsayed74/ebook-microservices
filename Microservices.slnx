@@ -2,6 +2,7 @@
   <Folder Name="/Services/">
     <Project Path="Basket/Basket.Api/Basket.Api.csproj" Id="6e2cf9fa-a0f0-4b00-ad21-5e37aa44f9fc" />
     <Project Path="Catalog/Catalog.Api/Catalog.Api.csproj" />
+    <Project Path="Order/Order.Api/Order.Api.csproj" Id="981d9fcc-eff4-4b7c-a7e9-c34c86f9dbdf" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
