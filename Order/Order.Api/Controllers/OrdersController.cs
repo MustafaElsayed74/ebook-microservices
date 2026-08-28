@@ -38,12 +38,7 @@ namespace Order.Api.Controllers
         }
 
 
-        [HttpDelete("id:{id}", Name = "DeleteOrder")]
-        public async Task<IActionResult> DeleteOrder(int id)
-        {
-            await _orderRepository.DeleteOrder(id);
-            return Ok();
-        }
+     
 
 
     }

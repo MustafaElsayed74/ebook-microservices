@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Order.Api.Data;
 using Order.Api.Repositories;
+using Order.Api.Services;
 
 namespace Order.Api
 {
@@ -16,6 +17,15 @@ namespace Order.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+            builder.Services.AddHttpClient<BasketApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("http://basket.api:8082/");
+            });
+
+            builder.Services.AddHttpClient<CatalogApiClient>(client =>
+            {
+                client.BaseAddress = new Uri("http://basket.api:8080/");
+            });
             builder.Services.AddDbContext<OrderDbContext>(options =>
             {
                 var cs = builder.Configuration.GetConnectionString("DefaultConection")

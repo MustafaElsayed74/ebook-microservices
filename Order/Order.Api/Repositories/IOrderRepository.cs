@@ -9,5 +9,6 @@ namespace Order.Api.Repositories
         Task<CustomerOrder> CreateOrder(CustomerOrder order);
         Task<bool> UpdateOrder(CustomerOrder order);
         Task<bool> DeleteOrder(int id);
+        Task<DeliviryMethod> GetDeliviryMethod(int id);
     }
 }

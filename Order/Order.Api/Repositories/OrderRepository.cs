@@ -35,11 +35,16 @@ namespace Order.Api.Repositories
 
         }
 
+        public async Task<DeliviryMethod> GetDeliviryMethod(int id)
+        {
+            return await _dbContext.deliviryMethods.FindAsync(id);
+        }
+
         public async Task<CustomerOrder?> GetOrdersById(int id)
         {
             return await _dbContext
                 .Orders
-                .Include(o => o.Address)
+                .Include(o => o.ShippingAddress)
                 .Include(o => o.Items)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
@@ -50,7 +55,7 @@ namespace Order.Api.Repositories
             return await _dbContext
                 .Orders
                 .Include(o => o.Items)
-                .Include(o => o.Address)
+                .Include(o => o.ShippingAddress)
                 .Where(o => o.Username == username)
                 .ToListAsync();
         }

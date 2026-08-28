@@ -1,15 +1,28 @@
 ﻿namespace Order.Api.Entities
 {
-    public class OrderItem
+    public class OrderItem : BaseEntity
     {
-        public int Id { get; set; }
+        public OrderItem()
+        {
+            
+        }
+
+        public OrderItem(string productId, string productName, decimal price, int quantiry)
+        {
+            ProductId = productId;
+            ProductName = productName;
+            Price = price;
+            Quantiry = quantiry;
+        }
+
         public int OrderId { get; set; }
-        public int ProductId { get; set; }
+
+        public string ProductId { get; set; }
         public string ProductName { get; set; }
+        
+
         public decimal Price { get; set; }
         public int Quantiry { get; set; }
-        public OrderStatus Status { get; set; }
-
-        public CustomerOrder? Order { get; set; }
+        
     }
 }
