@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Order.Api.Data;
+using Order.Api.Repositories;
 
 namespace Order.Api
 {
@@ -14,6 +15,7 @@ namespace Order.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
             builder.Services.AddDbContext<OrderDbContext>(options =>
             {
                 var cs = builder.Configuration.GetConnectionString("DefaultConection")
